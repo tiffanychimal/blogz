@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+        .centeralign {
+        text-align: center;
+        }
+    </style>
+
+    <h1 class=centeralign>Create New Blog Post</h1>
+    <form method='post'>
+        <p>
+            <label>
+                New Blog Title:
+                <input type="text" name='title' />
+            </label>
+        </p>
+        <p>
+            <label>
+                New Blog Post:
+                <p>
+                    <textarea name="paragraph_text" cols="50" rows="10" name='body'></textarea>
+                </p>
+            </label>
+        </p>
+    <p>
+        <input type="submit" value='Publish Post' />
+    </p>
+    </form>
+
+    <hr />
+
+    {% if blogs|length == 0 %}
+    <p>No blogs yet</p>
+    {% else %}
+
+        <ul>
+            {% for blog in blogs %}
+            <li>{{title}}</li>
+            {% endfor %}
+        </ul>
+    
+    {% endif %}
+{% endblock %}
