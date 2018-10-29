@@ -1,9 +1,42 @@
 <!doctype html>
 <html>
     <head>
-        <title>{{title}}</title>
+        <title center-align>{{title}}</title>
+        <style>
+            .error {
+                color: red;
+            }
+            li {
+                list-style: none;
+            }
+            ul {
+                padding-left: 0;
+            }
+            h1 {
+                text-align: center;
+            }
+            p {
+                margin-left: 30px;
+            }
+        </style>
+
     </head>
 <body>
+
+    <div>
+        <a href='/blog'>Main Blog Page</a>
+        <a href='/newpost'>Create New Blog</a>
+        <a href='/logout' style="float:right">Log Out</a>
+
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        <ul>
+        {% for category,message in messages %}
+            <li class="{{category}}">{{message}}</li>
+        {% endfor %}
+        </ul>
+    {% endwith %}
 
     {% block content %}
     {% endblock %}
