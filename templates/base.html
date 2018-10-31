@@ -23,12 +23,15 @@
     </head>
 <body>
 
-    <div>
-        <a href='/blog'>Main Blog Page</a>
-        <a href='/newpost'>Create New Blog</a>
-        <a href='/logout' style="float:right">Log Out</a>
+    <nav>
+        <a href='/blog'>Main Blog Page</a> |
+        <a href='/newpost'>Create New Blog</a> |
+        <a href='/logout' style="text-align:right">Log out</a> |
+        <a href='/login' style="text-align: right">Login</a> |
+        <a href='/'>Home</a> 
+        
 
-    </div>
+    </nav>
 
     {% with messages = get_flashed_messages(with_categories=True) %}
         <ul>
