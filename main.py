@@ -95,9 +95,9 @@ def blog():
         return render_template('blogpost.html', blog=blog)
 
     if request.args.get("user"):
-        user = User.query.get("email")
-        blogs = Blog.query.filter_by(id=user).first()
-        return render_template('SingleUser.html', user=user, blogs=blogs)   
+        user_id = request.args.get('user') # return an int (1,2, 300)
+        user = User.query.get(user_id)
+        return render_template('SingleUser.html', user=user)   
 
     # get blogs from database
     blogs = Blog.query.all()
