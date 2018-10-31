@@ -100,7 +100,12 @@ def blog():
         return render_template('SingleUser.html', user=user)   
 
     # get blogs from database
-    blogs = Blog.query.all()
+    page = request.args.get("page")
+    if not request.args.get("page"):
+        page = 1
+    else: 
+        page = int(page)
+    blogs = Blog.query.paginate(page=page, per_page=5, error_out=True)
     # return template with blogs
     return render_template('blogs.html', blogs=blogs) 
 
