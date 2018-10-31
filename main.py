@@ -1,6 +1,16 @@
 from flask import Flask, request, redirect, render_template, session, flash 
 from flask_sqlalchemy import SQLAlchemy 
 from datetime import datetime
+import hashlib
+
+def make_pw_hash(password):
+    return hashlib.sha256(str.encode(password)).hexdigest()
+
+def check_pw_hash(password, hash):
+    if make_pw_hash(password) == hash:
+        return True
+
+    return False
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -46,7 +56,7 @@ def login():
         email = request.form['email']
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
-        if user and user.password == password:
+        if check_pw_hash(password, user.password):
             session['email'] = email
             flash("Logged in")
             return redirect('/newpost')
@@ -67,7 +77,7 @@ def register():
 
         existing_user = User.query.filter_by(email=email).first()
         if not existing_user:
-            new_user = User(email, password)
+            new_user = User(email, make_pw_hash(password))
             db.session.add(new_user)
             db.session.commit()
             session['email'] = email
